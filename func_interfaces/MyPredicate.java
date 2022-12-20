@@ -1,5 +1,7 @@
 package func_interfaces;
 
+import func_interfaces.model.Cat;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,11 +25,9 @@ public class MyPredicate {
     }
 
     // Далее рассмотрим цепочки предикатов, который можно делать благодаря методов по умолчанию
-    record Cat(String name, int age, String color){}
-
-    Predicate<Cat> predicate = cat -> cat.color.equals("black");
-    Predicate<Cat> predicate2 = cat -> cat.color.equals("red");
-    Predicate<Cat> predicate3 = cat -> cat.age > 5;
+    Predicate<Cat> predicate = cat -> cat.color().equals("black");
+    Predicate<Cat> predicate2 = cat -> cat.color().equals("red");
+    Predicate<Cat> predicate3 = cat -> cat.age() > 5;
 
     public List<Cat> triplePredicate(List<Cat> cats) {
         return cats.stream()
