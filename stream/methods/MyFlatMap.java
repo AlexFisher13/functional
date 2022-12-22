@@ -7,6 +7,17 @@ import static java.util.stream.Collectors.toList;
 
 public class MyFlatMap {
     public static void main(String[] args) {
+
+        /** Нужно перемножить между собой 2 списка */
+        List<Integer> firstList = Arrays.asList(1, 2, 3, 4);
+        List<Integer> secondList = Arrays.asList(10, 20, 30, 40);
+
+        firstList.stream()
+                .flatMap(i -> secondList.stream()
+                        .map(j -> i * j))
+                .forEach(i -> System.out.print(i + ", "));
+
+
         /** Получить из этого ["Hello," "World"] это ["H," "e," "l," "o," "W," "r," "d"] */
         List<String> helloWorld = Arrays.asList("Hello", "World");
 
