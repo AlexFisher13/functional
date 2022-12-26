@@ -2,6 +2,11 @@ package stream;
 
 import func_interfaces.model.Dish;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -9,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class MyStream {
+public class StreamSimpleOperations {
     public static List<Dish> menu = Arrays.asList(
             new Dish("pork", false, 800, Dish.Type.MEAT),
             new Dish("beef", false, 700, Dish.Type.MEAT),
@@ -21,7 +26,7 @@ public class MyStream {
             new Dish("prawns", false, 300, Dish.Type.FISH),
             new Dish("salmon", false, 450, Dish.Type.FISH));
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /**
          *
          * Intermediate operations
@@ -116,7 +121,7 @@ public class MyStream {
 
         /**
          *
-         * Digital streams IntStream, LongStream, DoubleStream
+         * Числовые стримы IntStream, LongStream, DoubleStream
          * оптимизированы для работы именно со своими типами данных.
          *
          * */
@@ -131,5 +136,19 @@ public class MyStream {
         intStream.boxed(); // трансформирует в обычный Stream
 
 
+
+        /**
+         *
+         * Стрим из файла
+         *
+         * */
+        Path path = Paths.get("/Users/fisher/IdeaProjects/functional/stream/nio/data.txt");
+
+        long uniqueWords = Files.lines(path, Charset.defaultCharset()) // создаем стрим строк файла
+                .flatMap(line -> Arrays.stream(line.split(" "))) // из каждой строки создаем стрим слов. И сливаем эти стримы в один
+                .distinct() // находим уникальные слова
+                .count();
+
+        System.out.println(uniqueWords);
     }
 }

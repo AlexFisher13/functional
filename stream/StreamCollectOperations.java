@@ -6,7 +6,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public class MyCollector {
+public class StreamCollectOperations {
     static List<Transaction> transactions = Arrays.asList(
             new Transaction(250d, Currency.EUR),
             new Transaction(250d, Currency.EUR),
