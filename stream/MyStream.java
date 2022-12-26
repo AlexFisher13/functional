@@ -21,7 +21,7 @@ public class MyStream {
 
     public static void main(String[] args) {
 
-        /* Intermediate operations */
+        /** Intermediate operations */
         long count = menu.stream()
                 .filter(d -> d.calories() > 100) // отбираем блюда калорийностью больше 100
                 .peek(System.out::println) // подглядываем в поток, и выводим в консоль элементы
@@ -33,5 +33,13 @@ public class MyStream {
                 .dropWhile(n -> n.contains("t")) // выкидываем элементы, которые содержат "t"
                 .distinct() // оставляем только уникальные элементы
                 .count();
+
+        // flatMap. Перемножаем 2 списка
+        List<Integer> list1 = Arrays.asList(1, 2, 3, 4);
+        List<Integer> list2 = Arrays.asList(10, 20, 30, 40);
+        list1.stream()
+                .flatMap(i -> list2.stream()  // сливаем 2 потока в один
+                        .map(j -> i * j))
+                .forEach(i -> System.out.print(i + ", "));
     }
 }

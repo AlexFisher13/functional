@@ -9,7 +9,7 @@ public class MyFlatMap {
     public static void main(String[] args) {
 
         /** Нужно перемножить между собой 2 списка */
-        List<Integer> firstList = Arrays.asList(1, 2, 3, 4);
+        List<Integer> firstList = Arrays.asList(1, 2, 3, 4, 6);
         List<Integer> secondList = Arrays.asList(10, 20, 30, 40);
 
         firstList.stream()
