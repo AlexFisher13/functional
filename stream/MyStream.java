@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class MyStream {
@@ -18,11 +19,13 @@ public class MyStream {
             new Dish("season fruit", true, 120, Dish.Type.OTHER),
             new Dish("pizza", true, 550, Dish.Type.OTHER),
             new Dish("prawns", false, 300, Dish.Type.FISH),
-            new Dish("salmon", false, 450, Dish.Type.FISH) );
+            new Dish("salmon", false, 450, Dish.Type.FISH));
 
     public static void main(String[] args) {
         /**
+         *
          * Intermediate operations
+         *
          */
         long dishCount = menu.stream()
                 .filter(d -> d.calories() > 100) // отбираем блюда калорийностью больше 100
@@ -44,9 +47,10 @@ public class MyStream {
                         .map(j -> i * j))
                 .forEach(i -> System.out.print(i + ", "));
 
-
         /**
+         *
          * Terminal Operations
+         *
          * */
         menu.stream().forEach(System.out::println); // пробегаем по каждому элементу
         long count =
@@ -75,7 +79,9 @@ public class MyStream {
 
 
         /**
+         *
          * Generate Operations
+         *
          * */
         Stream.iterate(100, n -> n + 3) // генерировать числа начиная со 100, прибавляя по 3
                 .limit(100) // без лимита будет бесконечный поток
@@ -88,7 +94,7 @@ public class MyStream {
         Stream.iterate(new int[]{0, 1},
                         t -> new int[]{t[1], t[0] + t[1]})
                 .limit(20)
-                .forEach(t -> System.out.println("(" + t[0] + "," + t[1] +")"));
+                .forEach(t -> System.out.println("(" + t[0] + "," + t[1] + ")"));
 
         /* В Java 9 в iterate добавили поддержку предикатов,
         то есть можно генерить, пока не выполнится какое-то условие.
@@ -100,6 +106,29 @@ public class MyStream {
         Stream.generate(Math::random) // Сгенерировать 5 рандомных чисел
                 .limit(5)
                 .forEach(System.out::println);
+
+
+        // range() - не включая последнее число
+        // rangeClosed() - включая последнее число
+        IntStream.rangeClosed(1, 30) // Сгенерируем список четных чисел от 0 до 30
+                .forEach(i -> System.out.print(i + " "));
+
+
+        /**
+         *
+         * Digital streams IntStream, LongStream, DoubleStream
+         * оптимизированы для работы именно со своими типами данных.
+         *
+         * */
+
+        IntStream intStream = IntStream.of(1, 2, 3, 4);
+        IntStream intStream2 = Stream.of(1, 2, 3).mapToInt(Integer::valueOf);
+
+        intStream.sum(); // сумма
+        intStream.max(); // макс/мин
+        intStream.average(); // среднее
+        intStream.summaryStatistics(); // статистика включает в себя сумму, макс, мин, средее
+        intStream.boxed(); // трансформирует в обычный Stream
 
 
     }

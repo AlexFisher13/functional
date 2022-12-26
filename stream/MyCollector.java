@@ -1,4 +1,4 @@
-package stream.collector;
+package stream;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public class MyGroupingBy {
+public class MyCollector {
     static List<Transaction> transactions = Arrays.asList(
             new Transaction(250d, Currency.EUR),
             new Transaction(250d, Currency.EUR),
