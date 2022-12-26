@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class MyStream {
     public static List<Dish> menu = Arrays.asList(
@@ -70,6 +71,36 @@ public class MyStream {
         // вариант reduce без начального значения возвращает Optional
         Optional<Integer> reduce = menu.stream()
                 .map(Dish::calories)
-                .reduce(Integer::sum); // здесь я использовал еще вместо обычной лямбды ссылку на суммирование
+                .reduce(Integer::max); // здесь я использовал еще вместо обычной лямбды ссылку на поиск максимального
+
+
+        /**
+         * Generate Operations
+         * */
+        Stream.iterate(100, n -> n + 3) // генерировать числа начиная со 100, прибавляя по 3
+                .limit(100) // без лимита будет бесконечный поток
+                .forEach(System.out::println);
+
+        /* Сгенерировать 20 чисел Фибоначи (когда следующее число сумма двух предыдущих)!
+         * Сложность в том, что iterate использует один элемент для генерации следующего, нужно для начала 2 числа.
+         * Нам же нужно работать именно с парами чисел, для вычисления их сумм.
+         * Поэтому, в качестве элемента мы будем использовать в качествое элемента ОДИН массив, из двух значений. */
+        Stream.iterate(new int[]{0, 1},
+                        t -> new int[]{t[1], t[0] + t[1]})
+                .limit(20)
+                .forEach(t -> System.out.println("(" + t[0] + "," + t[1] +")"));
+
+        /* В Java 9 в iterate добавили поддержку предикатов,
+        то есть можно генерить, пока не выполнится какое-то условие.
+        (Начальное значение, условие, шаг) */
+        Stream.iterate(0, n -> n < 100, n -> n + 4)
+                .forEach(System.out::println);
+
+        // Generate отличается от iterate тем, что испоользует в аргументе Supplier (Поставщик)
+        Stream.generate(Math::random) // Сгенерировать 5 рандомных чисел
+                .limit(5)
+                .forEach(System.out::println);
+
+
     }
 }
