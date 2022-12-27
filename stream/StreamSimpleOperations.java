@@ -60,15 +60,15 @@ public class StreamSimpleOperations {
         menu.stream().forEach(System.out::println); // пробегаем по каждому элементу
         long count =
                 menu.stream().count(); // считаем количество элементов
-        boolean allBeef =
+        boolean allMatch =
                 menu.stream().allMatch(d -> d.name().equals("beef")); // проверяем все ли названия блюд соответствуют "beef"
-        boolean anyBeef =
+        boolean anyMatch =
                 menu.stream().anyMatch(d -> d.name().equals("beef")); // проверяем хоть одно название соответствует "beef"
-        boolean beef =
+        boolean noneMatch =
                 menu.stream().noneMatch(d -> d.name().equals("beef")); // проверяем, что ни одно название не соответствует "beef"
-        Optional<Dish> first =
+        Optional<Dish> findFirst =
                 menu.stream().findFirst(); // берем первый элемент
-        Optional<Dish> any =
+        Optional<Dish> findAny =
                 menu.stream().findAny(); // берем любой элемент
 
         // reduce - уменьшать, сводить
@@ -78,7 +78,7 @@ public class StreamSimpleOperations {
                 .reduce(0, (a, b) -> a + b); // найдем сумму каллаорий всей блюд
 
         // вариант reduce без начального значения возвращает Optional
-        Optional<Integer> reduce = menu.stream()
+        Optional<Integer> max = menu.stream()
                 .map(Dish::calories)
                 .reduce(Integer::max); // здесь я использовал еще вместо обычной лямбды ссылку на поиск максимального
 
