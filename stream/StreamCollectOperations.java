@@ -3,7 +3,6 @@ package stream;
 import func_interfaces.model.Dish;
 
 import java.util.*;
-import java.util.stream.Collector;
 
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
@@ -13,7 +12,7 @@ public class StreamCollectOperations {
      *
      * Collect - "собирать"
      * Collector<T, A, R> - интерфейс для создания своих стратегий сборки
-     * Collectors - класс с готовыми стратегиями сборки (toList, joining итд)
+     * Collectors - класс с готовыми стратегиями сборки (toList, joining итд), реализующий Collector<T, A, R> в своих static методах
      *    - toList
      *    - joining
      *    - counting
