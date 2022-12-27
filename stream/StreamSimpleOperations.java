@@ -88,7 +88,10 @@ public class StreamSimpleOperations {
          * Generate Operations
          *
          * */
-        Stream.iterate(100, n -> n + 3) // генерировать числа начиная со 100, прибавляя по 3
+        /* iterate - создает бесконечный поток.
+        Принимает 2 параметра: начальное число и функцию создающее следующее число на основе предыдущего.
+        Такой бесконечный поток нужно ограничивать, с помощью limit().*/
+                Stream.iterate(100, n -> n + 3) // генерировать числа начиная со 100, прибавляя по 3
                 .limit(100) // без лимита будет бесконечный поток
                 .forEach(System.out::println);
 
@@ -107,14 +110,20 @@ public class StreamSimpleOperations {
         Stream.iterate(0, n -> n < 100, n -> n + 4)
                 .forEach(System.out::println);
 
-        // Generate отличается от iterate тем, что испоользует в аргументе Supplier (Поставщик)
+        /* generate - создает бесконечный поток.
+        Принимает параметр Supplier - поставщик.
+        Например, Math::random. Нам будет бесконечно генерить рандомные числа.
+        Также нужно ограничивать лимитом.
+         */
         Stream.generate(Math::random) // Сгенерировать 5 рандомных чисел
                 .limit(5)
                 .forEach(System.out::println);
 
 
-        // range() - не включая последнее число
-        // rangeClosed() - включая последнее число
+        /* range, rangeClosed - генерирует нам ограниченный поток чисел.
+        Принимает на вход: начальное и конечное значение.
+        Разница в том, что range не включает указанные конечный элемент, а rangeClosed включает.
+        И это все работает только числовыми стримами (IntStream, DoubleStream, LongStream)*/
         IntStream.rangeClosed(1, 30) // Сгенерируем список четных чисел от 0 до 30
                 .forEach(i -> System.out.print(i + " "));
 
