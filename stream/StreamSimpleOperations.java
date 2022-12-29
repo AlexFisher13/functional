@@ -1,6 +1,6 @@
 package stream;
 
-import func_interfaces.model.Dish;
+import interfaces.model.Dish;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

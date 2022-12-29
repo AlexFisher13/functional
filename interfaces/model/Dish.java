@@ -1,4 +1,4 @@
-package func_interfaces.model;
+package interfaces.model;
 
 import java.util.Arrays;
 import java.util.List;

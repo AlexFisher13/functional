@@ -1,6 +1,6 @@
-package func_interfaces;
+package interfaces;
 
-import func_interfaces.model.Cat;
+import interfaces.model.Cat;
 
 import java.util.function.Function;
 

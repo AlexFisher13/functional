@@ -1,3 +1,3 @@
-package func_interfaces.model;
+package interfaces.model;
 
 public record Cat(String color, int age){}
