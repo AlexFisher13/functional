@@ -2,15 +2,18 @@ package stream;
 
 import interfaces.model.Dish;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.KeyPair;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -44,7 +47,21 @@ public class StreamSimpleOperations {
                 .distinct() // оставляем только уникальные элементы
                 .count();
 
-        // flatMap. Перемножаем 2 списка
+        // flatMap - преобразовывает каждый элемент стрима в новый стрим, и затем объединяет элементы новых стримов
+        // flatMap принимает элемент и возвращает стрим или наследник стрима (? extends Stream)
+        List<List<Integer>> l = List.of(List.of(1,2,3), List.of(4,5,6), List.of(7,8,9));
+        l.stream()
+                .flatMap(a -> a.stream())
+                .collect(Collectors.toList()); // 1,2,3,4,5,6,7,8
+
+        // У нас есть лист с листом точек. У каждой точки есть координаты. Нам нужен лист координат.
+        List<List<Point>> points = List.of(List.of(new Point(1, 2), new Point(3, 4)));
+        points.stream()
+                .flatMap(j -> j.stream()) // каждый элемент родительского листа делаем стримом, и стримы объединяем в один
+                .flatMap(p -> Stream.of(p.getX(), p.getY())) // из полей класса Point тоже делаем стрим, т.к. flatMap возвращает стрим
+                .collect(Collectors.toList()); // собираем всё в лист
+
+        // Перемножаем 2 списка
         List<Integer> list1 = Arrays.asList(1, 2, 3, 4);
         List<Integer> list2 = Arrays.asList(10, 20, 30, 40);
         list1.stream()
